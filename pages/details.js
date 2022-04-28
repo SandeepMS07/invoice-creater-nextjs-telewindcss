@@ -114,6 +114,7 @@ const details = [
     name: "email",
     id: "email",
   },
+   
 ];
 
 export default details;

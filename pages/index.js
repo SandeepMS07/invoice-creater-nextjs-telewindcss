@@ -3,11 +3,11 @@ import Head from "next/head";
 export default function Home() {
   return (
     <div>
-      <header className="bg-green-400  sticky top-0 h-[73px] flex justify-center items-center font-semibold uppercase drop-shadow-xl">
-        Dashboard
+      <header className="bg-darkViolet sticky top-0 h-[72px] flex justify-start items-center drop-shadow-xl">
+        <p className="ml-8 text-white font-semibold uppercase">Dashboard</p>
       </header>
       <div className="flex justify-center items-center min-h-[750px]">
-        <h1 className="text-5xl font-bold">Dashboard</h1>
+        <h1 className="text-5xl font-bold ">Dashboard</h1>
       </div>
     </div>
   );

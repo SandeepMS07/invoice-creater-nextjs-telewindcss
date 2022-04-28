@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TiClipboard } from "react-icons/ti";
-import { IoLogoBuffer } from "react-icons/io";
+import { FiArrowUpRight } from "react-icons/fi";
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -22,26 +22,28 @@ const Layout = ({ children }) => {
   ];
   return (
     <div className="min-h-screen flex flex-col">
-      {/* <header className="bg-gray-400  sticky top-0 h-[73px] flex justify-center items-center font-semibold uppercase drop-shadow-xl">
-        Invoice
+      {/* <header className="bg-[#17013b] sticky top-0 h-[72px] flex justify-start items-center drop-shadow-xl">
+        <p className="ml-8 text-white font-semibold uppercase">Invoice</p>
       </header> */}
+
       <div className="flex flex-col md:flex-row flex-1">
-        <aside className="bg-green-400 w-full md:w-16 drop-shadow-lg">
+        <aside className="bg-darkViolet w-full md:w-16 drop-shadow-lg">
           <nav>
-            <ul>
-              <li className="flex mt-2 p-2 text-5xl text-white ">
-                <IoLogoBuffer />
-              </li>
-              <div className="border-[1px] border-black bg-black"></div>
+            <li className="flex mt-2 p-2 text-5xl text-eastSide ">
+              <FiArrowUpRight />
+            </li>
+            <hr />
+
+            <ul className="mt-8 mb-8">
               {menuItems.map(({ href, title, icon }) => (
                 <li className="m-3" key={title}>
                   <Link href={href}>
                     <a
-                      className={`flex p-2 bg-green-400 rounded hover:bg-green-600 cursor-pointer ${
-                        router.asPath === href && "bg-green-800 text-yellow-500"
+                      className={`flex p-2 bg-darkViolet rounded hover:bg-blue-800 cursor-pointer ${
+                        router.asPath === href && "bg-blue-600"
                       }`}
                     >
-                      <span className="text-2xl">{icon}</span>
+                      <span className="text-2xl text-white">{icon}</span>
                     </a>
                   </Link>
                 </li>
@@ -49,7 +51,8 @@ const Layout = ({ children }) => {
             </ul>
           </nav>
         </aside>
-        <main className="flex-1 overflow-hidden h-screen">{children}</main>
+
+        <main className="flex-1 overflow-hidden  h-screen">{children}</main>
       </div>
     </div>
   );
