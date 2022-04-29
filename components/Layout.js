@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
           </nav>
         </aside>
 
-        <main className="flex-1 overflow-hidden  h-screen">{children}</main>
+        <main className="flex-1 overflow-auto  h-screen">{children}</main>
       </div>
     </div>
   );
