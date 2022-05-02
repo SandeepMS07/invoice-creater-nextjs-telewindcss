@@ -92,20 +92,21 @@ const Invoice = () => {
   return (
     <div className="">
       {/* <h1>{JSON.stringify(values)}</h1> */}
-      <header className="bg-darkViolet sticky top-0 h-[72px] flex  justify-between items-center drop-shadow-xl z-50">
+      <header className="bg-darkViolet sticky top-0 h-[72px] hidden md:flex  justify-between items-center drop-shadow-xl z-50">
         <p className="ml-8 mr-8 text-white font-semibold uppercase">Invoice</p>
         <button className="px-3 py-1 mr-9 hover:bg-indigo-500 hover:text-white">
           Print
         </button>
       </header>
 
-      <div className="grid md:grid-cols-8 divide-x m-1 border-[1px] drop-shadow-xl ">
+      <div className="grid lg:grid-cols-8 md:grid-cols-4 divide-x m-1 border-[1px]">
         {/* invoice form */}
         <div className="md:col-span-5">
+          <p className="text-xl font-semibold m-3 ml-5 flex md:hidden">Invoice</p>
           <div className="">
             <form
               action=""
-              className="flex flex-col justify-center items-center border-2 md:border-2 m-8 md:m-4 p-4"
+              className="flex flex-col justify-center items-center border-2 md:border-2 m-9 mx-12 md:m-4 p-4"
               onSubmit={handleSubmit}
             >
               <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 w-full">
@@ -124,7 +125,7 @@ const Invoice = () => {
                         id={inp.id}
                         placeholder={inp.placeholder}
                         onChange={handleChange}
-                        className="block bg-gray-200 border-[1px] px-7 md:px-2 py-[2px] mb-4 rounded outline-none border-gray-400 placeholder:text-sm placeholder:font-[400] focus:border-none focus:outline-none"
+                        className="block bg-gray-200 border-[1px] px-7 md:px-2 py-[2px] mb-4 rounded outline-none border-gray-400 placeholder:text-sm placeholder:font-[400] focus:border-none focus:outline-none focus:drop-shadow-xl"
                       />
                     </div>
                   );
@@ -158,7 +159,7 @@ const Invoice = () => {
                                 </label>
                                 <input
                                   type={inp.type}
-                                  className="border-[1px] outline-none w-full p-[2px] rounded  bg-gray-200 border-gray-400 placeholder:text-xs placeholder:font-[400] focus:border-none focus:outline-none"
+                                  className="border-[1px] outline-none w-full p-[2px] rounded  bg-gray-200 border-gray-400 placeholder:text-xsj placeholder:font-[400] focus:border-none focus:outline-none  focus:drop-shadow-xl"
                                   name={inp.name}
                                   id={inp.id}
                                   placeholder={inp.placeholder}
@@ -213,7 +214,7 @@ const Invoice = () => {
         </div>
         {/* invoice review */}
         <div className="col-span-3">
-          <div className="flex flex-col items-center justify-center min-h-[600px] border-2 m-4 bg-gray-300">
+          <div className="flex flex-col items-center justify-center  w-auto min-h-[600px] border-2 m-4 bg-gray-300">
            
           </div>
         </div>
