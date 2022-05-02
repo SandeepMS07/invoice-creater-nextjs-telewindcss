@@ -23,15 +23,15 @@ const inputDetails = [
   {
     type: "text",
     placeholder: "Enter Student ID",
-    name: "studentId",
-    id: "studentId",
+    name: "student_id",
+    id: "student_id",
     title: "Student ID",
   },
   {
     type: "text",
     placeholder: "Enter LearnCab ID",
-    name: "learncabId",
-    id: "learncabId",
+    name: "learncab_id",
+    id: "learncab_id",
     title: "LearnCab ID",
   },
   {
@@ -79,9 +79,16 @@ const inputDetails = [
   {
     type: "text",
     placeholder: "Enter Payment ID",
-    name: "paymentId",
-    id: "paymentId",
+    name: "payment_id",
+    id: "payment_id",
     title: "Payment ID",
+  },
+  {
+    type: "Date",
+    placeholder: "Enter Invoice Date",
+    name: "invoice_date",
+    id: "invoice_date",
+    title: "Invoice Date",
   },
 ];
 

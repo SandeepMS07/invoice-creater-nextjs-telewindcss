@@ -3,8 +3,9 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { MdOutlineDashboard, MdCancel } from "react-icons/md";
 import { TiClipboard } from "react-icons/ti";
-import { FiArrowUpRight } from "react-icons/fi";
+// import { FiArrowUpRight } from "react-icons/fi";
 import { ImMenu } from "react-icons/im";
+import Image from "next/image";
 
 const Layout = ({ children }) => {
   const [nav, setNav] = useState(false);
@@ -27,7 +28,7 @@ const Layout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-[#17013b] sticky top-0 h-[72px] md:hidden flex justify-start items-center drop-shadow-xl z-[900]">
-        <div>
+        <div className="flex md:hidden flex-row items-center justify-between">
           {/* <p className="ml-8 text-white font-semibold uppercase">Invoice</p> */}
           <div className="md:hidden" onClick={handleClick}>
             {!nav ? (
@@ -36,14 +37,29 @@ const Layout = ({ children }) => {
               <MdCancel className="w-10 text-2xl text-white" />
             )}
           </div>
+          <div className="md:hidden ml-72 w-full">
+            <Image
+              src="/assets/images/logobluecion.png"
+              alt=""
+              height="40px"
+              width="40px"
+              className="text-white"
+            />
+          </div>
         </div>
       </header>
 
       <div className="flex flex-col md:flex-row flex-1">
         <aside className="bg-darkViolet w-full  md:w-16 drop-shadow-lg">
           <nav>
-            <li className="md:flex mt-2 p-2 text-5xl hidden text-eastSide ">
-              <FiArrowUpRight />
+            <li className="md:flex mt-2 p-2 text-5xl hidden">
+              <Image
+                src="/assets/images/logobluecion.png"
+                alt=""
+                height="50px"
+                width="50px"
+                className="text-white"
+              />
             </li>
             <hr className="hidden md:flex" />
 

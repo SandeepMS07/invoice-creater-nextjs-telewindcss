@@ -7,23 +7,24 @@ const Invoice = () => {
     name: "",
     email: "",
     phone: "",
-    studentId: "",
-    learncabId: "",
+    student_id: "",
+    learncab_id: "",
     address: "",
     city: "",
     state: "",
     pincode: "",
     country: "",
     gstNo: "",
-    paymentId: "",
+    payment_id: "",
+    invoice_date: "",
   });
   const [itemList, setItemList] = useState([
     {
       description: "",
       price: "",
-      amountPaid: "",
-      planCode: "",
-      Days: "",
+      amount_paid: "",
+      plan_code: "",
+      days: "",
       discount: "",
     },
   ]);
@@ -36,24 +37,25 @@ const Invoice = () => {
         name: "",
         email: "",
         phone: "",
-        studentId: "",
-        learncabId: "",
+        student_id: "",
+        learncab_id: "",
         address: "",
         city: "",
         state: "",
         pincode: "",
         country: "",
         gstNo: "",
-        paymentId: "",
+        payment_id: "",
+        invoice_date: "",
       },
     ]);
     setItemList([
       {
         description: "",
         price: "",
-        amountPaid: "",
-        planCode: "",
-        Days: "",
+        amount_paid: "",
+        plan_code: "",
+        days: "",
         discount: "",
       },
     ]);
@@ -102,7 +104,9 @@ const Invoice = () => {
       <div className="grid lg:grid-cols-8 md:grid-cols-4 divide-x m-1 border-[1px]">
         {/* invoice form */}
         <div className="md:col-span-5">
-          <p className="text-xl font-semibold m-3 ml-5 flex md:hidden">Invoice</p>
+          <p className="text-xl font-semibold m-3 ml-5 flex md:hidden">
+            Invoice
+          </p>
           <div className="">
             <form
               action=""
@@ -214,9 +218,7 @@ const Invoice = () => {
         </div>
         {/* invoice review */}
         <div className="col-span-3">
-          <div className="flex flex-col items-center justify-center  w-auto min-h-[600px] border-2 m-4 bg-gray-300">
-           
-          </div>
+          <div className="flex flex-col items-center justify-center  w-auto min-h-[600px] border-2 m-4 bg-gray-300"></div>
         </div>
       </div>
     </div>

@@ -16,22 +16,22 @@ const ItemlistDetails = [
   {
     type: "text",
     placeholder: "Enter Amount Paid",
-    name: "amountPaid",
-    id: "amountPaid",
+    name: "amount_paid",
+    id: "amount_paid",
     title: "Amount Paid",
   },
   {
     type: "text",
     placeholder: "Enter Plan Code",
-    name: "planCode",
-    id: "planCode",
+    name: "plan_code",
+    id: "plan_code",
     title: "Plan Code",
   },
   {
     type: "text",
     placeholder: "Enter Days",
-    name: "Days",
-    id: "Days",
+    name: "days",
+    id: "days",
     title: "Days",
   },
   {
