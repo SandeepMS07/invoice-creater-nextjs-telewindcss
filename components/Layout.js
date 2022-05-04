@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
             ) : (
               <MdCancel className="w-10 text-2xl text-white" />
             )}
-          </div>
+          </div> 
           <div className="md:hidden ml-72 w-full">
             <Image
               src="/assets/images/logobluecion.png"
