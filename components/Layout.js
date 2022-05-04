@@ -52,6 +52,7 @@ const Layout = ({ children }) => {
       <div className="flex flex-col md:flex-row flex-1">
         <aside className="bg-darkViolet w-full  md:w-16 drop-shadow-lg">
           <nav>
+            <Link href="/" passHref>
             <li className="md:flex mt-2 p-2 text-5xl hidden">
               <Image
                 src="/assets/images/logobluecion.png"
@@ -61,6 +62,7 @@ const Layout = ({ children }) => {
                 className="text-white"
               />
             </li>
+            </Link>
             <hr className="hidden md:flex" />
 
             <ul className="hidden md:flex flex-col mt-8 mb-8">
