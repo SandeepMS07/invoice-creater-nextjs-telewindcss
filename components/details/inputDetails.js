@@ -72,8 +72,8 @@ const inputDetails = [
   {
     type: "text",
     placeholder: "Enter GST Number",
-    name: "gstNo",
-    id: "gstNo",
+    name: "gst_number",
+    id: "gst_number",
     title: "GST Number",
   },
   {

@@ -28,10 +28,15 @@ const Invoice = () => {
       discount: "",
     },
   ]);
+  const [error, seterror] = useState({});
+  const [issubmit, setissubmit] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // alert(values);
     console.log(values, itemList);
+
+    setissubmit(true);
     setValues([
       {
         name: "",
@@ -44,7 +49,7 @@ const Invoice = () => {
         state: "",
         pincode: "",
         country: "",
-        gstNo: "",
+        gst_number: "",
         payment_id: "",
         invoice_date: "",
       },
@@ -62,7 +67,9 @@ const Invoice = () => {
   };
 
   const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    let { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+    seterror(valid(values));
   };
 
   const handleItemChange = (e, index) => {
@@ -70,6 +77,7 @@ const Invoice = () => {
     const list = [...itemList];
     list[index][name] = value;
     setItemList(list);
+    seterror(valid(itemList));
   };
 
   const handleaddclick = () => {
@@ -91,9 +99,117 @@ const Invoice = () => {
     setItemList(list);
   };
 
+  let valid = (value) => {
+    let errors = {};
+    let userReg = /^[A-Za-z]+$/g;
+    let emailReg =
+      /^[A-Za-z]+([.-]?[A-Za-z]+)*@[A-Za-z]+([.-]?[A-Za-z]+)*(.[A-Za-z]{2,3})+$/g;
+
+    //!  name
+    if (!value.name) {
+      errors.name = "*Name required";
+    } else if (!userReg.test(value.name)) {
+      errors.name = "*Name must contain only Alphabets";
+    }
+
+    //!  email
+    if (!value.email) {
+      errors.email = "*Email required";
+    } else if (!emailReg.test(value.email)) {
+      errors.email = "*email should be in the format ex.axxx@gmaxx.com";
+    }
+
+    //!  Phone number
+    if (!value.phone) {
+      errors.phone = "*phonenumber required";
+    }
+
+    //!  Student id
+    if (!value.student_id) {
+      errors.student_id = "*Student id required";
+    }
+
+    //!  Learncab id
+    if (!value.learncab_id) {
+      errors.learncab_id = "*Learncab id required";
+    }
+
+    //!   Address
+    if (!value.address) {
+      errors.address = "*address required";
+    }
+
+    //!   city
+    if (!value.city) {
+      errors.city = "*city required";
+    }
+
+    //!   state
+    if (!value.state) {
+      errors.state = "*state required";
+    }
+
+    //!   pincode
+    if (!value.pincode) {
+      errors.pincode = "*pincode required";
+    }
+
+    //!   country
+    if (!value.country) {
+      errors.country = "*country required";
+    }
+
+    //!   gst_number
+    if (!value.gst_number) {
+      errors.gst_number = "*gst_number required";
+    }
+
+    //!  Payment id
+    if (!value.payment_id) {
+      errors.payment_id = "*Payment id required";
+    }
+
+    //!  invoice_date
+    if (!value.invoice_date) {
+      errors.invoice_date = "*invoice date required";
+    }
+
+    // //? items
+    // //! description
+    // if (!value.description) {
+    //   errors.description = "*description required";
+    // }
+
+    // //! price
+    // if (!value.price) {
+    //   errors.price = "*price required";
+    // }
+
+    // //! amount_paid
+    // if (!value.amount_paid) {
+    //   errors.amount_paid = "*amount paid required";
+    // }
+
+    // //! plan_code
+    // if (!value.plan_code) {
+    //   errors.plan_code = "*plan code required";
+    // }
+
+    // //! days
+    // if (!value.days) {
+    //   errors.days = "*days required";
+    // }
+
+    // //! discount
+    // if (!value.discount) {
+    //   errors.discount = "*discount required";
+    // }
+
+    return errors;
+  };
+
   return (
     <div className="">
-      {/* <h1>{JSON.stringify(values)}</h1> */}
       <header className="bg-darkViolet sticky top-0 h-[72px] hidden md:flex  justify-between items-center drop-shadow-xl z-50">
         <p className="ml-8 mr-8 text-white font-semibold uppercase">Invoice</p>
         <button className="px-3 py-1 mr-9 hover:bg-indigo-500 hover:text-white">
@@ -119,7 +235,7 @@ const Invoice = () => {
                     <div key={ind} className="md:mr-10">
                       <label
                         htmlFor=""
-                        className="block text-gray-700 text-xs font-bold mb-2"
+                        className="block text-gray-700 text-xs font-bold mb-1"
                       >
                         {inp.title}
                       </label>
@@ -129,8 +245,11 @@ const Invoice = () => {
                         id={inp.id}
                         placeholder={inp.placeholder}
                         onChange={handleChange}
-                        className="block bg-gray-200 border-[1px] px-7 md:px-2 py-[2px] mb-4 rounded outline-none border-gray-400 placeholder:text-sm placeholder:font-[400] focus:border-none focus:outline-none focus:drop-shadow-xl"
+                        className="block bg-gray-200 border-[1px] px-7 md:px-2 py-[2px] mb-1 rounded outline-none border-gray-400 placeholder:text-sm placeholder:font-[400] focus:border-none focus:outline-none focus:drop-shadow-xl"
                       />
+                      <p className="text-red-600 text-xs mb-2">
+                        {error[inp.name]}
+                      </p>
                     </div>
                   );
                 })}
@@ -152,12 +271,12 @@ const Invoice = () => {
                         {ItemlistDetails.map((inp, ind) => {
                           return (
                             <div key={ind}>
-                              <div className=" border-[1px] w-full mt-4 bg-gray-200 border-gray-200 inline-block mb-2 drop-shadow-xl"></div>
+                              <div className=" border-[1px] w-full mt-4 bg-gray-200 border-gray-200 inline-block mb-1 drop-shadow-xl"></div>
 
                               <div className={`mr-10`}>
                                 <label
                                   htmlFor=""
-                                  className="text-gray-700 text-xs font-bold mb-2 flex md:justify-center items-center"
+                                  className="text-gray-700 text-xs font-bold mb-1 flex md:justify-center items-center"
                                 >
                                   {inp.title}
                                 </label>
@@ -169,6 +288,9 @@ const Invoice = () => {
                                   placeholder={inp.placeholder}
                                   onChange={(e) => handleItemChange(e, i)}
                                 />
+                                <p className="text-red-600 text-xs mb-2">
+                                  {error[inp.name]}
+                                </p>
                               </div>
                             </div>
                           );
