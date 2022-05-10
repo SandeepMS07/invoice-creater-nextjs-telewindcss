@@ -7,7 +7,7 @@ import { TiClipboard } from "react-icons/ti";
 import { ImMenu } from "react-icons/im";
 import Image from "next/image";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, login }) => {
   const [nav, setNav] = useState(false);
   const router = useRouter();
 
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
             ) : (
               <MdCancel className="w-10 text-2xl text-white" />
             )}
-          </div> 
+          </div>
           <div className="md:hidden ml-72 w-full">
             <Image
               src="/assets/images/logobluecion.png"
@@ -53,15 +53,15 @@ const Layout = ({ children }) => {
         <aside className="bg-darkViolet w-full  md:w-16 drop-shadow-lg">
           <nav>
             <Link href="/" passHref>
-            <li className="md:flex mt-2 p-2 text-5xl hidden">
-              <Image
-                src="/assets/images/logobluecion.png"
-                alt=""
-                height="50px"
-                width="50px"
-                className="text-white"
-              />
-            </li>
+              <li className="md:flex mt-2 p-2 text-5xl hidden">
+                <Image
+                  src="/assets/images/logobluecion.png"
+                  alt=""
+                  height="50px"
+                  width="50px"
+                  className="text-white"
+                />
+              </li>
             </Link>
             <hr className="hidden md:flex" />
 
@@ -110,3 +110,12 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+
+// export async function getServerSideProps(context) {
+//   const res = await fetch("../pages/login");
+//   return {
+//     props: {
+//       login,
+//     },
+//   };
+// }

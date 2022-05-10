@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const invoiceSchema = new Schema({
@@ -12,7 +13,7 @@ const invoiceSchema = new Schema({
     type: String,
   },
   phone: {
-    type: String,
+    type: Number,
   },
   student_id: {
     type: Schema.Types.ObjectId,
@@ -99,4 +100,5 @@ const invoiceSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("invoice_details", invoiceSchema);
+// module.exports = mongoose.model("invoice_details", invoiceSchema);
+export default mongoose.models.invoice_details || mongoose.model("invoice_details", invoiceSchema)

@@ -27,7 +27,9 @@ const LoginPage = () => {
     seterror(valid(formvalues));
   };
 
-  //! validation function
+  /**
+   * validation
+   */
   let valid = (values) => {
     let errors = {};
 
@@ -79,7 +81,7 @@ const LoginPage = () => {
                   />
                 </div>
                 <p className="text-xs mb-2 text-red-600 ">{error.password}</p>
-                <Link href="/Dashboard" passHref>
+                <Link href="/" passHref>
                   <button
                     type="submit"
                     className="border-2 border-darkViolet text-darkViolet rounded-full px-8 md:px-12 py-1 md:py-2 inline-block font-semibold hover:bg-darkViolet hover:text-white"

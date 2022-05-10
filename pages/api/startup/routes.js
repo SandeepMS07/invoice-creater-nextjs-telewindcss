@@ -15,4 +15,5 @@ module.exports = function (app) {
   app.use(express.json());
 
   app.use("/invoy/api/v1/invoice", invoice);
+
 };

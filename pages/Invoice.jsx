@@ -1,8 +1,11 @@
 /** Package imports */
 
+// import { response } from "express";
+import axios from "axios";
 import React, { useState } from "react";
 import inputDetails from "../components/details/inputDetails";
 import ItemlistDetails from "../components/details/ItemlistDetails";
+import InvoiceReview from "../components/InvoiceReview";
 
 // const express = require("express");
 // const app = express();
@@ -39,8 +42,10 @@ const Invoice = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // alert(values);
-    console.log(values, itemList);
-    // await app.post("/api/routes/invoice/invoice");
+    // console.log(values, itemList);
+    const response = await axios.post("/api/invoice")
+    const data = await response.json()
+    console.log(data);
     setissubmit(true);
     setValues([
       {
@@ -85,8 +90,8 @@ const Invoice = () => {
     seterror(valid(itemList));
   };
 
-  /**  Dynamic items  
-    *  Add
+  /**  Dynamic items
+   *  Add
    */
   const handleaddclick = () => {
     setItemList([
@@ -106,7 +111,6 @@ const Invoice = () => {
    *  Dynamic items
    *  Remove
    */
-
 
   const handleremove = (index) => {
     const list = [...itemList];
@@ -227,8 +231,6 @@ const Invoice = () => {
 
     return errors;
   };
-
-
 
   return (
     <div className="">
@@ -362,7 +364,9 @@ const Invoice = () => {
         </div>
         {/* invoice review */}
         <div className="col-span-3">
-          <div className="flex flex-col items-center justify-center  w-auto min-h-[600px] border-2 m-4 bg-gray-300"></div>
+          <div className="flex flex-col items-center justify-center  w-auto min-h-[600px] border-2 m-4 bg-gray-300">
+            <InvoiceReview />
+          </div>
         </div>
       </div>
     </div>
@@ -370,3 +374,17 @@ const Invoice = () => {
 };
 
 export default Invoice;
+
+// export async function getServerSideProps( ) {
+//   // const { params } = context;
+
+//   const res = await axios.get("http://localhost:3001/api/Invoice");
+
+//   const data = await res.json();
+
+//   return {
+//     props: {
+//       data: data,
+//     },
+//   };
+// }
