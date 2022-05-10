@@ -2,10 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const invoiceSchema = new Schema({
+  invoice_number: {
+    type: String,
+  },
   name: {
     type: String,
   },
   email: {
+    type: String,
+  },
+  phone: {
     type: String,
   },
   student_id: {
@@ -29,7 +35,7 @@ const invoiceSchema = new Schema({
   country: {
     type: String,
   },
-  gdtNo: {
+  gst_number: {
     type: String,
   },
   payment_id: {
@@ -38,7 +44,22 @@ const invoiceSchema = new Schema({
   invoice_date: {
     type: Date,
   },
-
+  total_amount: {
+    type: Number,
+    default: 0,
+  },
+  created_date: {
+    type: Date,
+    default: Date.now,
+  },
+  amount_paid: {
+    type: Number,
+    default: 0,
+  },
+  taxable_amount: {
+    type: Number,
+    default: 0,
+  },
   items: [
     {
       description: {
@@ -61,6 +82,21 @@ const invoiceSchema = new Schema({
       },
     },
   ],
+  SGST: {
+    type: Number,
+    default: 0,
+  },
+  IGST: {
+    type: Number,
+    default: 0,
+  },
+  CGST: {
+    type: Number,
+    default: 0,
+  },
+  download_url: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("invoice_details", invoiceSchema);

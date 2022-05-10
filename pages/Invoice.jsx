@@ -1,6 +1,11 @@
+/** Package imports */
+
 import React, { useState } from "react";
 import inputDetails from "../components/details/inputDetails";
 import ItemlistDetails from "../components/details/ItemlistDetails";
+
+// const express = require("express");
+// const app = express();
 
 const Invoice = () => {
   const [values, setValues] = useState({
@@ -35,7 +40,7 @@ const Invoice = () => {
     e.preventDefault();
     // alert(values);
     console.log(values, itemList);
-
+    // await app.post("/api/routes/invoice/invoice");
     setissubmit(true);
     setValues([
       {
@@ -80,6 +85,9 @@ const Invoice = () => {
     seterror(valid(itemList));
   };
 
+  /**  Dynamic items  
+    *  Add
+   */
   const handleaddclick = () => {
     setItemList([
       ...itemList,
@@ -93,11 +101,23 @@ const Invoice = () => {
       },
     ]);
   };
+
+  /**
+   *  Dynamic items
+   *  Remove
+   */
+
+
   const handleremove = (index) => {
     const list = [...itemList];
+    // if (list.length == 1) return false;
     list.splice(index, 1);
     setItemList(list);
   };
+
+  /**
+   * vaidation
+   */
 
   let valid = (value) => {
     let errors = {};
@@ -207,6 +227,8 @@ const Invoice = () => {
 
     return errors;
   };
+
+
 
   return (
     <div className="">

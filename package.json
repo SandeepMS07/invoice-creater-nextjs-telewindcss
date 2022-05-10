@@ -17,10 +17,13 @@
     "express": "^4.18.1",
     "express-async-errors": "^3.1.1",
     "forms": "^1.3.2",
+    "fs": "^0.0.1-security",
     "get-stream": "^6.0.1",
     "helmet": "^5.0.2",
+    "https": "^1.0.0",
     "into-stream": "^7.0.0",
     "loadassh": "^4.17.22",
+    "lodash": "^4.17.21",
     "moment": "^2.29.3",
     "mongoose": "^6.3.2",
     "morgan": "^1.10.0",
@@ -28,6 +31,7 @@
     "next": "12.1.5",
     "node-blob": "^0.0.2",
     "nodemailer": "^6.7.5",
+    "path": "^0.12.7",
     "pdfkit": "^0.13.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -36,10 +40,10 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.0",
-    "nodemon": "^2.0.16",
     "autoprefixer": "^10.4.5",
     "eslint": "8.14.0",
     "eslint-config-next": "12.1.5",
+    "nodemon": "^2.0.16",
     "postcss": "^8.4.12",
     "tailwindcss": "^3.0.24"
   }

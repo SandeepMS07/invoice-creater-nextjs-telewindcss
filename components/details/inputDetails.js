@@ -14,7 +14,7 @@ const inputDetails = [
     title: "Email",
   },
   {
-    type: "number",
+    type: "Number",
     placeholder: "Enter Phone No",
     name: "phone",
     id: "phone",

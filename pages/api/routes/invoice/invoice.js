@@ -65,10 +65,16 @@ router.post("/generateInvoice", async (req, res) => {
     state,
     pincode,
     country,
-     
+    download_url,
     payment_id,
     price,
     items,
+    amount_paid,
+    invoice_date,
+    plan_code,
+    days,
+    discount,
+    date,
   } = req.body;
 
   let gst_number = req.body.gst_number ? req.body.gst_number : "";
@@ -89,7 +95,7 @@ router.post("/generateInvoice", async (req, res) => {
   iMonth = iMonth >= 10 ? iMonth : `0${iMonth}`;
   const invoice_number = "INV" + iYear + iMonth + "SN" + seqNo;
 
-  // GET Total Amount Paid (all purchases)
+  // GET Total Amount Paid (all purchases
   let totalAmount = items.reduce((acc, elem) => acc + elem.amount_paid, 0);
 
   // GET Total Price
