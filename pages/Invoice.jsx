@@ -24,47 +24,7 @@ const Invoice = () => {
     country: "",
     gstNo: "",
     payment_id: "",
-    invoice_date: "",
-  });
-  const [itemList, setItemList] = useState([
-    {
-      description: "",
-      price: "",
-      amount_paid: "",
-      plan_code: "",
-      days: "",
-      discount: "",
-    },
-  ]);
-  const [error, seterror] = useState({});
-  const [issubmit, setissubmit] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // alert(values);
-    // console.log(values, itemList);
-    const response = await axios.post("/api/invoice")
-    const data = await response.json()
-    console.log(data);
-    setissubmit(true);
-    setValues([
-      {
-        name: "",
-        email: "",
-        phone: "",
-        student_id: "",
-        learncab_id: "",
-        address: "",
-        city: "",
-        state: "",
-        pincode: "",
-        country: "",
-        gst_number: "",
-        payment_id: "",
-        invoice_date: "",
-      },
-    ]);
-    setItemList([
+    items: [
       {
         description: "",
         price: "",
@@ -73,7 +33,68 @@ const Invoice = () => {
         days: "",
         discount: "",
       },
-    ]);
+    ],
+    invoice_date: "",
+  });
+  // const [itemList, setItemList] = useState([
+  //   {
+  //     description: "",
+  //     price: "",
+  //     amount_paid: "",
+  //     plan_code: "",
+  //     days: "",
+  //     discount: "",
+  //   },
+  // ]);
+  const [error, seterror] = useState({});
+  const [issubmit, setissubmit] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(e)
+    // alert(values);
+    // // console.log(values, itemList);
+    // const response = await axios.post("/api/invoice");
+    // const data = await response.json();
+    // console.log(data);
+    // setissubmit(true);
+    // setValues([
+    //   {
+    //     name: "",
+    //     email: "",
+    //     phone: "",
+    //     student_id: "",
+    //     learncab_id: "",
+    //     address: "",
+    //     city: "",
+    //     state: "",
+    //     pincode: "",
+    //     country: "",
+    //     gst_number: "",
+    //     payment_id: "",
+    //     items: [
+    //       {
+    //         description: "",
+    //         price: "",
+    //         amount_paid: "",
+    //         plan_code: "",
+    //         days: "",
+    //         discount: "",
+    //       },
+    //     ],
+    //     invoice_date: "",
+    //   },
+    // ]);
+    // // setItemList([
+    // //   {
+    // //     description: "",
+    // //     price: "",
+    // //     amount_paid: "",
+    // //     plan_code: "",
+    // //     days: "",
+    // //     discount: "",
+    // //   },
+    // // ]);
   };
 
   const handleChange = (e) => {
@@ -84,18 +105,18 @@ const Invoice = () => {
 
   const handleItemChange = (e, index) => {
     const { name, value } = e.target;
-    const list = [...itemList];
+    const list = [...values.items];
     list[index][name] = value;
-    setItemList(list);
-    seterror(valid(itemList));
+    setValues(list);
+    seterror(valid(values.items));
   };
 
   /**  Dynamic items
    *  Add
    */
   const handleaddclick = () => {
-    setItemList([
-      ...itemList,
+    setValues.items([
+      ...values.items,
       {
         description: "",
         price: "",
@@ -113,10 +134,10 @@ const Invoice = () => {
    */
 
   const handleremove = (index) => {
-    const list = [...itemList];
+    const list = [...values.items];
     // if (list.length == 1) return false;
     list.splice(index, 1);
-    setItemList(list);
+    setValues.items(list);
   };
 
   /**
@@ -288,7 +309,7 @@ const Invoice = () => {
                 >
                   Items:
                 </label>
-                {itemList.map((x, i) => {
+                {values.items.map((x, i) => {
                   return (
                     <div key={i}>
                       <div className="grid md:grid-cols-3">
@@ -321,7 +342,7 @@ const Invoice = () => {
                         })}
                       </div>
                       <div className="flex justify-end items-center mr-6">
-                        {itemList.length !== 1 && (
+                        {values.items.length !== 1 && (
                           <button
                             className="m-4 w-20 py-2 text-xs bg-red-600 hover:bg-red-500 border-red-500 hover:text-white"
                             onClick={() => handleremove(i)}
@@ -329,7 +350,7 @@ const Invoice = () => {
                             Delete
                           </button>
                         )}
-                        {itemList.length - 1 === i && (
+                        {values.items.length - 1 === i && (
                           <button
                             className="m-4 w-20 py-2 text-xs bg-darkViolet hover:bg-blue-800 hover:text-white"
                             onClick={handleaddclick}
