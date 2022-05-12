@@ -43,10 +43,52 @@ const Invoice = () => {
     e.preventDefault();
     // alert(values);
     // console.log(values, itemList);
-    const response = await axios.post("/api/invoice")
-    const data = await response.json()
-    console.log(data);
-    setissubmit(true);
+    let details = {
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      student_id: values.student_id,
+      learncab_id: values.learncab_id,
+      address: values.address,
+      city: values.city,
+      state: values.state,
+      pincode: values.pincode,
+      country: values.country,
+      gst_number: values.gstNo,
+      payment_id: values.payment_id,
+      items: [
+        {
+          description: itemList.description,
+          price: itemList.price,
+          amount_paid: itemList.amount_paid,
+          plan_code: itemList.plan_code,
+          days: itemList.days,
+          discount: itemList.discount,
+        },
+      ],
+      invoice_date: values.invoice_date,
+    };
+    // try {
+    let apiUrl = "http://localhost:8000/invoy/api/v1/invoice/generateInvoice";
+    // const res = await axios.post(`${apiUrl}`, details);
+    // const data = await res.json();
+    // console.log(data);
+
+    axios({
+      method: "post",
+      url: apiUrl,
+      data: details,
+      headers: { "Content-Type": "application/Json" },
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      });
+
     setValues([
       {
         name: "",
@@ -74,6 +116,13 @@ const Invoice = () => {
         discount: "",
       },
     ]);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+
+    // const data = await response.json();
+    // console.log(data);
+    // setissubmit(true);
   };
 
   const handleChange = (e) => {
@@ -104,7 +153,7 @@ const Invoice = () => {
         Days: "",
         discount: "",
       },
-    ]);
+    ]); 
   };
 
   /**
@@ -375,16 +424,16 @@ const Invoice = () => {
 
 export default Invoice;
 
-// export async function getServerSideProps( ) {
+// export async function getServerSideProps() {
 //   // const { params } = context;
 
-//   const res = await axios.get("http://localhost:3001/api/Invoice");
-
+//   const res = await axios.get("/api/invoice/");
 //   const data = await res.json();
+//   console.log(data);
 
 //   return {
 //     props: {
-//       data: data,
+//       details: data,
 //     },
 //   };
 // }
