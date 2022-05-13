@@ -1,11 +1,8 @@
+ 
 import React from "react";
 
-const InvoiceReview = () => {
-  return (
-    <div>
-       <p>hello  this is invoice preview</p>
-    </div>
-  );
+const InvoiceReview = ({ data }) => {
+  <div> </div>;
 };
 
 export default InvoiceReview;

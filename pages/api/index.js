@@ -1,30 +1,10 @@
-/**
- * Package imports
- */
-
- const express = require("express");
- const winston = require("winston");
- require("dotenv").config();
- 
- const app = express();
- 
- /**
-  * Startup
-  */
- require("./startup/db")();
- //require("./startup/config")(app);
- require("./startup/logging")();
- require("./startup/protect")(app);
- require("./startup/routes")(app);
- 
- /**
-  * Server
-  */
- 
- const port = process.env.PORT || 8000;
- const server = app.listen(port, () =>
-   winston.info(`Server started at port ${port}`)
- );
- 
- module.exports = server;
- 
+const handler = async (req, res) => {
+  const { method } = req;
+  try {
+    const detail = await req.query;
+    res.status(200).json(detail);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+export default handler;
