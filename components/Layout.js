@@ -103,7 +103,7 @@ const Layout = ({ children, login }) => {
           </nav>
         </aside>
 
-        <main className="flex-1 overflow-auto w-full h-screen">{children}</main>
+        <main className="flex-1 overflow-auto w-full xl:h-[10px] h-screen">{children}</main>
       </div>
     </div>
   );

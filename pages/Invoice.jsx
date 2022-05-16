@@ -10,7 +10,7 @@ import ItemlistDetails from "../components/details/ItemlistDetails";
 // const app = express();
 
 const Invoice = () => {
-  const [values, setValues] = useState({
+  let [values, setValues] = useState({
     name: "",
     email: "",
     phone: "",
@@ -23,9 +23,19 @@ const Invoice = () => {
     country: "",
     gstNo: "",
     payment_id: "",
+    // items: [
+    //   {
+    //     description: "",
+    //     price: "",
+    //     amount_paid: "",
+    //     plan_code: "",
+    //     days: "",
+    //     discount: "",
+    //   },
+    // ],
     invoice_date: "",
   });
-  const [itemList, setItemList] = useState([
+  let [itemList, setItemList] = useState([
     {
       description: "",
       price: "",
@@ -36,8 +46,8 @@ const Invoice = () => {
     },
   ]);
   let [pdf, setPdf] = useState();
-  const [error, seterror] = useState({});
-  const [issubmit, setissubmit] = useState(false);
+  let [error, seterror] = useState({});
+  let [issubmit, setissubmit] = useState(false);
 
   const url = { pdf };
   const handleSubmit = async (e) => {
@@ -57,7 +67,7 @@ const Invoice = () => {
       country: values.country,
       gst_number: values.gstNo,
       payment_id: values.payment_id,
-      items: [
+      items: [ 
         {
           description: itemList.description,
           price: itemList.price,
@@ -86,39 +96,38 @@ const Invoice = () => {
         // const pdfData = JSON.stringify(response);
         // console.log(pdfData);
         // setPdf(pdfData);
+        setValues([
+          {
+            name: "",
+            email: "",
+            phone: "",
+            student_id: "",
+            learncab_id: "",
+            address: "",
+            city: "",
+            state: "",
+            pincode: "",
+            country: "",
+            gst_number: "",
+            payment_id: "",
+            invoice_date: "",
+          },
+        ]);
+        setItemList([
+          {
+            description: "",
+            price: "",
+            amount_paid: "",
+            plan_code: "",
+            days: "",
+            discount: "",
+          },
+        ]);
       })
       .catch((response) => {
         //handle error
         console.log(response);
       });
-
-    setValues([
-      {
-        name: "",
-        email: "",
-        phone: "",
-        student_id: "",
-        learncab_id: "",
-        address: "",
-        city: "",
-        state: "",
-        pincode: "",
-        country: "",
-        gst_number: "",
-        payment_id: "",
-        invoice_date: "",
-      },
-    ]);
-    setItemList([
-      {
-        description: "",
-        price: "",
-        amount_paid: "",
-        plan_code: "",
-        days: "",
-        discount: "",
-      },
-    ]);
 
     // console.log(data);
     // setissubmit(true);
@@ -135,7 +144,7 @@ const Invoice = () => {
     const list = [...itemList];
     list[index][name] = value;
     setItemList(list);
-    seterror(valid(itemList));
+    // seterror(valid(itemList));
   };
 
   /**  Dynamic items
@@ -299,7 +308,6 @@ const Invoice = () => {
             <form
               action=""
               className="flex flex-col justify-center items-center border-2 md:border-2 m-9 mx-12 md:m-4 p-4"
-              onSubmit={handleSubmit}
             >
               <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 w-full">
                 {inputDetails.map((inp, ind) => {
@@ -315,7 +323,9 @@ const Invoice = () => {
                         type={inp.type}
                         name={inp.name}
                         id={inp.id}
+                        value={values[inp.name]}
                         placeholder={inp.placeholder}
+                        // onChange={(e) => handleChange(e)}
                         onChange={handleChange}
                         className="block bg-gray-200 border-[1px] px-7 md:px-2 py-[2px] mb-1 rounded outline-none border-gray-400 placeholder:text-sm placeholder:font-[400] focus:border-none focus:outline-none focus:drop-shadow-xl"
                       />
@@ -357,8 +367,10 @@ const Invoice = () => {
                                   className="border-[1px] outline-none w-full p-[2px] rounded  bg-gray-200 border-gray-400 placeholder:text-xsj placeholder:font-[400] focus:border-none focus:outline-none  focus:drop-shadow-xl"
                                   name={inp.name}
                                   id={inp.id}
+                                  value={itemList[inp.name]}
                                   placeholder={inp.placeholder}
                                   onChange={(e) => handleItemChange(e, i)}
+                                  // onChange={(e) => handleChange(e)}
                                 />
                                 <p className="text-red-600 text-xs mb-2">
                                   {error[inp.name]}
@@ -396,6 +408,7 @@ const Invoice = () => {
               <div className="flex flex-row">
                 <button
                   type="submit"
+                  onClick={(e) => handleSubmit(e)}
                   className="m-4 w-20 py-1 text-center bg-darkViolet hover:bg-blue-800 hover:text-white"
                 >
                   Submit
@@ -412,19 +425,23 @@ const Invoice = () => {
         </div>
         {/* invoice review */}
         <div className="col-span-3">
-          <div className="flex flex-col items-center justify-center  w-auto min-h-[600px] border-2 m-4 bg-gray-300">
+          <div className="flex flex-col items-center justify-center  md:w-[670px]  lg:w-auto min-h-[600px] border-2 m-4 bg-gray-300">
             <object
               data={pdf}
               // data={ }
               type="application/pdf"
               // width="100%"
               // height="100%"
-              className="w-[600px] h-[700px]"
+              className="w-[370px] h-[600px] md:w-[650px] md:h-[800px] lg:w-[550px] lg:h-[700px]"
             >
               <p>
-                Alternative text - include a link <a className="text-darkViolet font-bold underline" href={pdf}>to the PDF!</a>
+                Alternative text - include a link{" "}
+                <a className="text-darkViolet font-bold underline" href={pdf}>
+                  to the PDF!
+                </a>
               </p>
             </object>
+            {/* <iframe src={pdf} className="w-[600px] h-[700px]"></iframe> */}
           </div>
         </div>
       </div>
