@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@azure/storage-blob": "^12.9.0",
-    "@pdftron/webviewer": "^8.5.0",
     "axios": "^0.27.2",
     "compression": "^1.7.4",
     "config": "^3.3.7",
@@ -24,7 +23,6 @@
     "helmet": "^5.0.2",
     "https": "^1.0.0",
     "into-stream": "^7.0.0",
-    "js-file-download": "^0.4.12",
     "loadassh": "^4.17.22",
     "lodash": "^4.17.21",
     "moment": "^2.29.3",
@@ -35,9 +33,9 @@
     "node-blob": "^0.0.2",
     "nodemailer": "^6.7.5",
     "path": "^0.12.7",
-    "pdfkit": "^0.13.0",
     "react": "18.1.0",
     "react-dom": "18.1.0",
+    "react-embed": "^3.6.0",
     "react-icons": "^4.3.1",
     "react-pdf": "^5.7.2",
     "winston": "^3.7.2"

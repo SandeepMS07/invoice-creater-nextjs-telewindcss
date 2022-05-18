@@ -7,14 +7,14 @@ const ItemlistDetails = [
     title: "Description",
   },
   {
-    type: "text",
+    type: "Number",
     placeholder: "Enter Price",
     name: "price",
     id: "price",
     title: "Price",
   },
   {
-    type: "text",
+    type: "Number",
     placeholder: "Enter Amount Paid",
     name: "amount_paid",
     id: "amount_paid",
@@ -28,7 +28,7 @@ const ItemlistDetails = [
     title: "Plan Code",
   },
   {
-    type: "text",
+    type: "Number",
     placeholder: "Enter Days",
     name: "days",
     id: "days",

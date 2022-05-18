@@ -64,7 +64,11 @@ const Layout = ({ children, login }) => {
               </li>
             </Link>
             <hr className="hidden md:flex" />
+            
 
+            {/**
+             * menu 
+             *   */}
             <ul className="hidden md:flex flex-col mt-8 mb-8">
               {menuItems.map(({ href, title, icon }) => (
                 <li className="m-3" key={title}>
@@ -80,6 +84,10 @@ const Layout = ({ children, login }) => {
                 </li>
               ))}
             </ul>
+
+          {/**
+           * small menu 
+           */}
             <ul
               className={!nav ? "hidden" : "absolute bg-darkViolet w-full px-8"}
             >
@@ -87,7 +95,7 @@ const Layout = ({ children, login }) => {
                 <li className="m-3" key={title}>
                   <Link href={href}>
                     <a
-                      className={`flex md:hidden p-2 bg-darkViolet rounded hover:bg-blue-800 z-[900] cursor-pointer ${
+                      className={`flex md:hidden p-2 sticky bg-darkViolet rounded hover:bg-blue-800 z-[900] cursor-pointer ${
                         router.asPath === href && "bg-blue-600"
                       }`}
                     >
@@ -118,4 +126,4 @@ export default Layout;
 //       login,
 //     },
 //   };
-// }
+// } 

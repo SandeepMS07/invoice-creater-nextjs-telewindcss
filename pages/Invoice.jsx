@@ -2,14 +2,22 @@
 
 // import { response } from "express";
 import axios from "axios";
-import React, { useState } from "react";
+import Head from "next/head";
+import React, { useState, useEffect } from "react";
 import inputDetails from "../components/details/inputDetails";
 import ItemlistDetails from "../components/details/ItemlistDetails";
+import Embed from "react-embed";
+import { Document, Page } from "react-pdf";
 
 // const express = require("express");
 // const app = express();
 
 const Invoice = () => {
+  const current = new Date();
+  const setDate = `${current.getDate()}/${
+    current.getMonth() + 1
+  }/${current.getFullYear()}`;
+
   let [values, setValues] = useState({
     name: "",
     email: "",
@@ -21,7 +29,7 @@ const Invoice = () => {
     state: "",
     pincode: "",
     country: "",
-    gstNo: "",
+    gst_number: "",
     payment_id: "",
     // items: [
     //   {
@@ -33,7 +41,6 @@ const Invoice = () => {
     //     discount: "",
     //   },
     // ],
-    invoice_date: "",
   });
   let [itemList, setItemList] = useState([
     {
@@ -65,21 +72,12 @@ const Invoice = () => {
       state: values.state,
       pincode: values.pincode,
       country: values.country,
-      gst_number: values.gstNo,
+      gst_number: values.gst_number,
       payment_id: values.payment_id,
-      items: [ 
-        {
-          description: itemList.description,
-          price: itemList.price,
-          amount_paid: itemList.amount_paid,
-          plan_code: itemList.plan_code,
-          days: itemList.days,
-          discount: itemList.discount,
-        },
-      ],
-      invoice_date: values.invoice_date,
+      items: itemList,
+      invoice_date: setDate,
     };
-
+    // console.log(details);
     let apiUrl = "http://localhost:8000/invoy/api/v1/invoice/generateInvoice";
 
     axios({
@@ -90,39 +88,16 @@ const Invoice = () => {
     })
       .then((response) => {
         //handle success
+        // console.log(response);
         console.log(response.data.fileurl);
         let urldata = response.data.fileurl;
+
+        Array.from(document.querySelectorAll("input")).forEach(
+          (input) => (input.value = "")
+        );
+        setValues([{}]);
+        setItemList([{}]);
         setPdf(urldata);
-        // const pdfData = JSON.stringify(response);
-        // console.log(pdfData);
-        // setPdf(pdfData);
-        setValues([
-          {
-            name: "",
-            email: "",
-            phone: "",
-            student_id: "",
-            learncab_id: "",
-            address: "",
-            city: "",
-            state: "",
-            pincode: "",
-            country: "",
-            gst_number: "",
-            payment_id: "",
-            invoice_date: "",
-          },
-        ]);
-        setItemList([
-          {
-            description: "",
-            price: "",
-            amount_paid: "",
-            plan_code: "",
-            days: "",
-            discount: "",
-          },
-        ]);
       })
       .catch((response) => {
         //handle error
@@ -182,15 +157,13 @@ const Invoice = () => {
 
   let valid = (value) => {
     let errors = {};
-    let userReg = /^[A-Za-z]+$/g;
-    let emailReg =
-      /^[A-Za-z]+([.-]?[A-Za-z]+)*@[A-Za-z]+([.-]?[A-Za-z]+)*(.[A-Za-z]{2,3})+$/g;
+    let emailReg = /^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/g;
+    let mobileReg =
+      /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
 
     //!  name
     if (!value.name) {
       errors.name = "*Name required";
-    } else if (!userReg.test(value.name)) {
-      errors.name = "*Name must contain only Alphabets";
     }
 
     //!  email
@@ -291,11 +264,14 @@ const Invoice = () => {
 
   return (
     <div className="">
+      <Head>
+        <title>Invoice</title>
+      </Head>
       <header className="bg-darkViolet sticky top-0 h-[72px] hidden md:flex  justify-between items-center drop-shadow-xl z-50">
         <p className="ml-8 mr-8 text-white font-semibold uppercase">Invoice</p>
-        <button className="px-3 py-1 mr-9 hover:bg-indigo-500 hover:text-white">
+        {/* <button className="px-3 py-1 mr-9 hover:bg-indigo-500 hover:text-white">
           Print
-        </button>
+        </button> */}
       </header>
 
       <div className="grid lg:grid-cols-8 md:grid-cols-4 divide-x m-1 border-[1px]">
@@ -307,6 +283,7 @@ const Invoice = () => {
           <div className="">
             <form
               action=""
+              onSubmit={(e) => handleSubmit(e)}
               className="flex flex-col justify-center items-center border-2 md:border-2 m-9 mx-12 md:m-4 p-4"
             >
               <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 w-full">
@@ -408,7 +385,6 @@ const Invoice = () => {
               <div className="flex flex-row">
                 <button
                   type="submit"
-                  onClick={(e) => handleSubmit(e)}
                   className="m-4 w-20 py-1 text-center bg-darkViolet hover:bg-blue-800 hover:text-white"
                 >
                   Submit
@@ -432,7 +408,7 @@ const Invoice = () => {
               type="application/pdf"
               // width="100%"
               // height="100%"
-              className="w-[370px] h-[600px] md:w-[650px] md:h-[800px] lg:w-[550px] lg:h-[700px]"
+              className="w-[370px] h-[600px] md:w-[650px] md:h-[800px] lg:w-[510px] lg:h-[600px]"
             >
               <p>
                 Alternative text - include a link{" "}
@@ -441,7 +417,16 @@ const Invoice = () => {
                 </a>
               </p>
             </object>
-            {/* <iframe src={pdf} className="w-[600px] h-[700px]"></iframe> */}
+
+            {/* <iframe
+              src={pdf}
+              className="w-[370px] h-[600px] md:w-[650px] md:h-[800px] lg:w-[510px] lg:h-[600px]"
+            ></iframe> */}
+
+            {/* <Embed
+              url={pdf}
+              className="w-[370px] h-[600px] md:w-[650px] md:h-[800px] lg:w-[550px] lg:h-[700px]"
+            /> */}
           </div>
         </div>
       </div>

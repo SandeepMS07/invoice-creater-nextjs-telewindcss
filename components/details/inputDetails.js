@@ -83,13 +83,7 @@ const inputDetails = [
     id: "payment_id",
     title: "Payment ID",
   },
-  {
-    type: "Date",
-    placeholder: "Enter Invoice Date",
-    name: "invoice_date",
-    id: "invoice_date",
-    title: "Invoice Date",
-  },
+  
 ];
 
 export default inputDetails;
