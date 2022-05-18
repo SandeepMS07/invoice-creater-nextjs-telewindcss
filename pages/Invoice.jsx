@@ -7,7 +7,6 @@ import React, { useState, useEffect } from "react";
 import inputDetails from "../components/details/inputDetails";
 import ItemlistDetails from "../components/details/ItemlistDetails";
 import Embed from "react-embed";
-import { Document, Page } from "react-pdf";
 
 // const express = require("express");
 // const app = express();
@@ -56,7 +55,6 @@ const Invoice = () => {
   let [error, seterror] = useState({});
   let [issubmit, setissubmit] = useState(false);
 
-  const url = { pdf };
   const handleSubmit = async (e) => {
     e.preventDefault();
     // alert(values);
@@ -80,29 +78,29 @@ const Invoice = () => {
     // console.log(details);
     let apiUrl = "http://localhost:8000/invoy/api/v1/invoice/generateInvoice";
 
-    axios({
-      method: "post",
-      url: apiUrl,
-      data: details,
-      headers: { "Content-Type": "application/Json" },
-    })
-      .then((response) => {
-        //handle success
-        // console.log(response);
-        console.log(response.data.fileurl);
-        let urldata = response.data.fileurl;
+    // axios({
+    //   method: "post",
+    //   url: apiUrl,
+    //   data: details,
+    //   headers: { "Content-Type": "application/Json" },
+    // })
+    //   .then((response) => {
+    //     //handle success
+    //     // console.log(response);
+    //     console.log(response.data.fileurl);
+    //     let urldata = response.data.fileurl;
 
-        Array.from(document.querySelectorAll("input")).forEach(
-          (input) => (input.value = "")
-        );
-        setValues([{}]);
-        setItemList([{}]);
-        setPdf(urldata);
-      })
-      .catch((response) => {
-        //handle error
-        console.log(response);
-      });
+    //     Array.from(document.querySelectorAll("input")).forEach(
+    //       (input) => (input.value = "")
+    //     );
+    //     setValues([{}]);
+    //     setItemList([{}]);
+    //     setPdf(urldata);
+    //   })
+    //   .catch((response) => {
+    //     //handle error
+    //     console.log(response);
+    //   });
 
     // console.log(data);
     // setissubmit(true);
@@ -112,6 +110,7 @@ const Invoice = () => {
     let { name, value } = e.target;
     setValues({ ...values, [name]: value });
     seterror(valid(values));
+    // setissubmit(true)
   };
 
   const handleItemChange = (e, index) => {
@@ -358,22 +357,26 @@ const Invoice = () => {
                         })}
                       </div>
                       <div className="flex justify-end items-center mr-6">
-                        {itemList.length !== 1 && (
-                          <button
-                            className="m-4 w-20 py-2 text-xs bg-red-600 hover:bg-red-500 border-red-500 hover:text-white"
-                            onClick={() => handleremove(i)}
-                          >
-                            Delete
-                          </button>
-                        )}
-                        {itemList.length - 1 === i && (
-                          <button
-                            className="m-4 w-20 py-2 text-xs bg-darkViolet hover:bg-blue-800 hover:text-white"
-                            onClick={handleaddclick}
-                          >
-                            Add Items
-                          </button>
-                        )}
+                        <div>
+                          {itemList.length !== 1 && (
+                            <button
+                              className="m-4 w-20 py-2 text-xs bg-red-600 hover:bg-red-500 border-red-500 hover:text-white"
+                              onClick={() => handleremove(i)}
+                            >
+                              Delete
+                            </button>
+                          )}
+                        </div>
+                        <div>
+                          {itemList.length - 1 === i && (
+                            <button
+                              className="m-4 w-20 py-2 text-xs bg-darkViolet hover:bg-blue-800 hover:text-white"
+                              onClick={handleaddclick}
+                            >
+                              Add Items
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
@@ -391,6 +394,13 @@ const Invoice = () => {
                 </button>
                 <button
                   type="reset"
+                  onClick={() => {
+                    Array.from(document.querySelectorAll("input")).forEach(
+                      (input) => (input.value = "")
+                    );
+                    setValues([{}]);
+                    setItemList([{}]);
+                  }}
                   className="m-4 w-20 py-1 text-center bg-darkViolet hover:bg-blue-800 hover:text-white"
                 >
                   Reset
