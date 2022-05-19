@@ -78,29 +78,29 @@ const Invoice = () => {
     // console.log(details);
     let apiUrl = "http://localhost:8000/invoy/api/v1/invoice/generateInvoice";
 
-    // axios({
-    //   method: "post",
-    //   url: apiUrl,
-    //   data: details,
-    //   headers: { "Content-Type": "application/Json" },
-    // })
-    //   .then((response) => {
-    //     //handle success
-    //     // console.log(response);
-    //     console.log(response.data.fileurl);
-    //     let urldata = response.data.fileurl;
+    axios({
+      method: "post",
+      url: apiUrl,
+      data: details,
+      headers: { "Content-Type": "application/Json" },
+    })
+      .then((response) => {
+        //handle success
+        // console.log(response);
+        console.log(response.data.fileurl);
+        let urldata = response.data.fileurl;
 
-    //     Array.from(document.querySelectorAll("input")).forEach(
-    //       (input) => (input.value = "")
-    //     );
-    //     setValues([{}]);
-    //     setItemList([{}]);
-    //     setPdf(urldata);
-    //   })
-    //   .catch((response) => {
-    //     //handle error
-    //     console.log(response);
-    //   });
+        Array.from(document.querySelectorAll("input")).forEach(
+          (input) => (input.value = "")
+        );
+        setValues([{}]);
+        setItemList([{}]);
+        setPdf(urldata);
+      })
+      .catch((response) => {
+        //handle error
+        console.log(response);
+      });
 
     // console.log(data);
     // setissubmit(true);
@@ -121,9 +121,11 @@ const Invoice = () => {
     // seterror(valid(itemList));
   };
 
-  /**  Dynamic items
+  /**
+   *  Dynamic items
    *  Add
    */
+
   const handleaddclick = () => {
     setItemList([
       ...itemList,
@@ -227,37 +229,6 @@ const Invoice = () => {
       errors.invoice_date = "*invoice date required";
     }
 
-    // //? items
-    // //! description
-    // if (!value.description) {
-    //   errors.description = "*description required";
-    // }
-
-    // //! price
-    // if (!value.price) {
-    //   errors.price = "*price required";
-    // }
-
-    // //! amount_paid
-    // if (!value.amount_paid) {
-    //   errors.amount_paid = "*amount paid required";
-    // }
-
-    // //! plan_code
-    // if (!value.plan_code) {
-    //   errors.plan_code = "*plan code required";
-    // }
-
-    // //! days
-    // if (!value.days) {
-    //   errors.days = "*days required";
-    // }
-
-    // //! discount
-    // if (!value.discount) {
-    //   errors.discount = "*discount required";
-    // }
-
     return errors;
   };
 
@@ -299,7 +270,7 @@ const Invoice = () => {
                         type={inp.type}
                         name={inp.name}
                         id={inp.id}
-                        value={values[inp.name]}
+                        // value={values[inp.name]}
                         placeholder={inp.placeholder}
                         // onChange={(e) => handleChange(e)}
                         onChange={handleChange}
@@ -343,7 +314,7 @@ const Invoice = () => {
                                   className="border-[1px] outline-none w-full p-[2px] rounded  bg-gray-200 border-gray-400 placeholder:text-xsj placeholder:font-[400] focus:border-none focus:outline-none  focus:drop-shadow-xl"
                                   name={inp.name}
                                   id={inp.id}
-                                  value={itemList[inp.name]}
+                                  // value={itemList[inp.name]}
                                   placeholder={inp.placeholder}
                                   onChange={(e) => handleItemChange(e, i)}
                                   // onChange={(e) => handleChange(e)}
