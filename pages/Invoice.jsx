@@ -12,10 +12,30 @@ import Embed from "react-embed";
 // const app = express();
 
 const Invoice = () => {
-  const current = new Date();
-  const setDate = `${current.getDate()}/${
-    current.getMonth() + 1
-  }/${current.getFullYear()}`;
+  // Date
+  // let setdate = () => {
+  //   const current = new Date();
+  //   let exp_day = current.getDate();
+  //   let day = exp_day >= 10 ? exp_day : `0${exp_day}`;
+
+  //   let exp_month = current.getMonth() + 1;
+  //   let month = exp_month >= 10 ? exp_month : "0" + exp_month;
+
+  //   let year = current.getFullYear();
+
+  //   let exp_hour = current.getHours();
+  //   let hour = exp_hour >= 10 ? exp_hour : "0" + exp_hour;
+
+  //   let exp_min = current.getMinutes();
+  //   let minute = exp_min >= 10 ? exp_min : "0" + exp_min;
+
+  //   let exp_sec = current.getSeconds();
+  //   let seconds = exp_sec >= 10 ? exp_sec : "0" + exp_sec;
+
+  //   return (
+  //     year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + seconds
+  //   );
+  // };
 
   let [values, setValues] = useState({
     name: "",
@@ -30,16 +50,7 @@ const Invoice = () => {
     country: "",
     gst_number: "",
     payment_id: "",
-    // items: [
-    //   {
-    //     description: "",
-    //     price: "",
-    //     amount_paid: "",
-    //     plan_code: "",
-    //     days: "",
-    //     discount: "",
-    //   },
-    // ],
+    date: "",
   });
   let [itemList, setItemList] = useState([
     {
@@ -53,12 +64,12 @@ const Invoice = () => {
   ]);
   let [pdf, setPdf] = useState();
   let [error, seterror] = useState({});
-  let [issubmit, setissubmit] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // alert(values);
-    // console.log(values, itemList);
+    setIsSubmit(true);
+    valid(values);
     let details = {
       name: values.name,
       email: values.email,
@@ -73,36 +84,18 @@ const Invoice = () => {
       gst_number: values.gst_number,
       payment_id: values.payment_id,
       items: itemList,
-      invoice_date: setDate,
+      invoice_date: values.date,
     };
-    // console.log(details);
+    console.log(details);
+    console.log(itemList);
+    console.log(values);
     let apiUrl = "http://localhost:8000/invoy/api/v1/invoice/generateInvoice";
+    // {
+    //   (Object.keys(error).length === 0 &&
+    //     isSubmit) &&
 
-    axios({
-      method: "post",
-      url: apiUrl,
-      data: details,
-      headers: { "Content-Type": "application/Json" },
-    })
-      .then((response) => {
-        //handle success
-        // console.log(response);
-        console.log(response.data.fileurl);
-        let urldata = response.data.fileurl;
+    // }
 
-        Array.from(document.querySelectorAll("input")).forEach(
-          (input) => (input.value = "")
-        );
-        setValues([{}]);
-        setItemList([{}]);
-        setPdf(urldata);
-      })
-      .catch((response) => {
-        //handle error
-        console.log(response);
-      });
-
-    // console.log(data);
     // setissubmit(true);
   };
 
@@ -110,6 +103,7 @@ const Invoice = () => {
     let { name, value } = e.target;
     setValues({ ...values, [name]: value });
     seterror(valid(values));
+    console.log(values);
     // setissubmit(true)
   };
 
@@ -118,6 +112,7 @@ const Invoice = () => {
     const list = [...itemList];
     list[index][name] = value;
     setItemList(list);
+    console.log(itemList);
     // seterror(valid(itemList));
   };
 
@@ -132,9 +127,9 @@ const Invoice = () => {
       {
         description: "",
         price: "",
-        amountPaid: "",
-        planCode: "",
-        Days: "",
+        amount_paid: "",
+        plan_code: "",
+        days: "",
         discount: "",
       },
     ]);
@@ -253,7 +248,7 @@ const Invoice = () => {
           <div className="">
             <form
               action=""
-              onSubmit={(e) => handleSubmit(e)}
+              onSubmit={handleSubmit}
               className="flex flex-col justify-center items-center border-2 md:border-2 m-9 mx-12 md:m-4 p-4"
             >
               <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 w-full">
@@ -270,7 +265,7 @@ const Invoice = () => {
                         type={inp.type}
                         name={inp.name}
                         id={inp.id}
-                        // value={values[inp.name]}
+                        value={values[inp.name]}
                         placeholder={inp.placeholder}
                         // onChange={(e) => handleChange(e)}
                         onChange={handleChange}
@@ -314,7 +309,7 @@ const Invoice = () => {
                                   className="border-[1px] outline-none w-full p-[2px] rounded  bg-gray-200 border-gray-400 placeholder:text-xsj placeholder:font-[400] focus:border-none focus:outline-none  focus:drop-shadow-xl"
                                   name={inp.name}
                                   id={inp.id}
-                                  // value={itemList[inp.name]}
+                                  value={itemList[inp.name]}
                                   placeholder={inp.placeholder}
                                   onChange={(e) => handleItemChange(e, i)}
                                   // onChange={(e) => handleChange(e)}
@@ -365,13 +360,13 @@ const Invoice = () => {
                 </button>
                 <button
                   type="reset"
-                  onClick={() => {
-                    Array.from(document.querySelectorAll("input")).forEach(
-                      (input) => (input.value = "")
-                    );
-                    setValues([{}]);
-                    setItemList([{}]);
-                  }}
+                  // onClick={() => {
+                  //   Array.from(document.querySelectorAll("input")).forEach(
+                  //     (input) => (input.value = "")
+                  //   );
+                  //   setValues([{}]);
+                  //   setItemList([{}]);
+                  // }}
                   className="m-4 w-20 py-1 text-center bg-darkViolet hover:bg-blue-800 hover:text-white"
                 >
                   Reset
@@ -380,12 +375,12 @@ const Invoice = () => {
             </form>
           </div>
         </div>
+
         {/* invoice review */}
         <div className="col-span-3">
           <div className="flex flex-col items-center justify-center  md:w-[670px]  lg:w-auto min-h-[600px] border-2 m-4 bg-gray-300">
             <object
               data={pdf}
-              // data={ }
               type="application/pdf"
               // width="100%"
               // height="100%"
@@ -398,7 +393,6 @@ const Invoice = () => {
                 </a>
               </p>
             </object>
-
             {/* <iframe
               src={pdf}
               className="w-[370px] h-[600px] md:w-[650px] md:h-[800px] lg:w-[510px] lg:h-[600px]"
@@ -418,7 +412,6 @@ const Invoice = () => {
 export default Invoice;
 
 // export async function getServerSideProps() {
-//   // const { params } = context;
 //   let apiUrl = "http://localhost:8000/invoy/api/v1/invoice/generateInvoice";
 
 //   const res = await axios({

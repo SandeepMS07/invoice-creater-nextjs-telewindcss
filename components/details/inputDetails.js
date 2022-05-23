@@ -83,6 +83,14 @@ const inputDetails = [
     id: "payment_id",
     title: "Payment ID",
   },
+  {
+    type: "Date",
+    placeholder: "Enter Date",
+    name: "date",
+    id: "date",
+    title: "Date",
+  },
+
   
 ];
 
