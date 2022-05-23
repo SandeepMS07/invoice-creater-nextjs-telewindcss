@@ -68,8 +68,9 @@ const Invoice = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    seterror(valid(values));
     setIsSubmit(true);
-    valid(values);
+
     let details = {
       name: values.name,
       email: values.email,
@@ -90,11 +91,30 @@ const Invoice = () => {
     console.log(itemList);
     console.log(values);
     let apiUrl = "http://localhost:8000/invoy/api/v1/invoice/generateInvoice";
-    // {
-    //   (Object.keys(error).length === 0 &&
-    //     isSubmit) &&
 
-    // }
+    // axios({
+    //   method: "post",
+    //   url: apiUrl,
+    //   data: details,
+    //   headers: { "Content-Type": "application/Json" },
+    // })
+    //   .then((response) => {
+    //     //handle success
+    //     // console.log(response);
+    //     // console.log(response.data.fileurl);
+    //     let urldata = response.data.fileurl;
+
+    //     // Array.from(document.querySelectorAll("input")).forEach(
+    //     //   (input) => (input.value = "")
+    //     // );
+    //     // setValues([{}]);
+    //     // setItemList([{}]);
+    //     setPdf(urldata);
+    //   })
+    //   .catch((response) => {
+    //     //handle error
+    //     console.log(response);
+    //   });
 
     // setissubmit(true);
   };
@@ -103,7 +123,7 @@ const Invoice = () => {
     let { name, value } = e.target;
     setValues({ ...values, [name]: value });
     seterror(valid(values));
-    console.log(values);
+
     // setissubmit(true)
   };
 
@@ -112,8 +132,8 @@ const Invoice = () => {
     const list = [...itemList];
     list[index][name] = value;
     setItemList(list);
-    console.log(itemList);
-    // seterror(valid(itemList));
+
+    seterror(valid(itemList));
   };
 
   /**
@@ -224,6 +244,38 @@ const Invoice = () => {
       errors.invoice_date = "*invoice date required";
     }
 
+     //? items
+    //! description
+    if (!value.description) {
+      errors.description = "*description required";
+    }
+
+    //! price
+    if (!value.price) {
+      errors.price = "*price required";
+    }
+
+    //! amount_paid
+    if (!value.amount_paid) {
+      errors.amount_paid = "*amount paid required";
+    }
+
+    //! plan_code
+    if (!value.plan_code) {
+      errors.plan_code = "*plan code required";
+    }
+
+    //! days
+    if (!value.days) {
+      errors.days = "*days required";
+    }
+
+    //! discount
+    if (!value.discount) {
+      errors.discount = "*discount required";
+    }
+
+
     return errors;
   };
 
@@ -248,7 +300,7 @@ const Invoice = () => {
           <div className="">
             <form
               action=""
-              onSubmit={handleSubmit}
+              onSubmit={(e) => handleSubmit(e)}
               className="flex flex-col justify-center items-center border-2 md:border-2 m-9 mx-12 md:m-4 p-4"
             >
               <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 w-full">
@@ -265,7 +317,7 @@ const Invoice = () => {
                         type={inp.type}
                         name={inp.name}
                         id={inp.id}
-                        value={values[inp.name]}
+                        // value={values[inp.name]}
                         placeholder={inp.placeholder}
                         // onChange={(e) => handleChange(e)}
                         onChange={handleChange}
@@ -309,7 +361,7 @@ const Invoice = () => {
                                   className="border-[1px] outline-none w-full p-[2px] rounded  bg-gray-200 border-gray-400 placeholder:text-xsj placeholder:font-[400] focus:border-none focus:outline-none  focus:drop-shadow-xl"
                                   name={inp.name}
                                   id={inp.id}
-                                  value={itemList[inp.name]}
+                                  // value={itemList[inp.name]}
                                   placeholder={inp.placeholder}
                                   onChange={(e) => handleItemChange(e, i)}
                                   // onChange={(e) => handleChange(e)}
@@ -360,13 +412,13 @@ const Invoice = () => {
                 </button>
                 <button
                   type="reset"
-                  // onClick={() => {
-                  //   Array.from(document.querySelectorAll("input")).forEach(
-                  //     (input) => (input.value = "")
-                  //   );
-                  //   setValues([{}]);
-                  //   setItemList([{}]);
-                  // }}
+                  onClick={() => {
+                    Array.from(document.querySelectorAll("input")).forEach(
+                      (input) => (input.value = "")
+                    );
+                    setValues([{}]);
+                    setItemList([{}]);
+                  }}
                   className="m-4 w-20 py-1 text-center bg-darkViolet hover:bg-blue-800 hover:text-white"
                 >
                   Reset
